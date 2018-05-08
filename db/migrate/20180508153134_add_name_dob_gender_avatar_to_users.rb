@@ -3,6 +3,6 @@ class AddNameDobGenderPhotoToUsers < ActiveRecord::Migration[5.1]
     add_column :users, :name, :string
     add_column :users, :dob, :date
     add_column :users, :gender, :integer
-    add_column :users, :photo, :string
+    add_column :users, :avatar, :string
   end
 end
