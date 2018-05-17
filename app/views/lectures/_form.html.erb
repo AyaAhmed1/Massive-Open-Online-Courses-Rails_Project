@@ -16,12 +16,22 @@
     <%= form.text_area :content, id: :lecture_content %>
   </div>
 
+
+
   <div class="field">
-    <%= form.label :attachment %>
-    <%= form.text_field :attachment, id: :lecture_attachment %>
+    <%= form.label :course_id %>
+    <%= form.select :course_id, Course.all.collect{|c| [c.title, c.id]} %>
   </div>
 
+
+  <div class="field">
+<%= form.label :attachment %><br />
+    <%= form.file_field :attachment%>
+   </div> 
+
+
+
   <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.submit %>
+</div>
 <% end %>
