@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508185104) do
+ActiveRecord::Schema.define(version: 20180518103121) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "namespace"
@@ -41,6 +41,73 @@ ActiveRecord::Schema.define(version: 20180508185104) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer "user_id"
+    t.integer "holder_id"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.string "commentable_url"
+    t.string "commentable_title"
+    t.string "commentable_state"
+    t.string "anchor"
+    t.string "title"
+    t.string "contacts"
+    t.text "raw_content"
+    t.text "content"
+    t.string "view_token"
+    t.string "state", default: "draft"
+    t.string "ip", default: "undefined"
+    t.string "referer", default: "undefined"
+    t.string "user_agent", default: "undefined"
+    t.integer "tolerance_time"
+    t.boolean "spam", default: false
+    t.integer "parent_id"
+    t.integer "lft"
+    t.integer "rgt"
+    t.integer "depth", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "commontator_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "creator_type"
+    t.integer "creator_id"
+    t.string "editor_type"
+    t.integer "editor_id"
+    t.integer "thread_id", null: false
+    t.text "body", null: false
+    t.datetime "deleted_at"
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
+    t.index ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
+    t.index ["creator_id", "creator_type", "thread_id"], name: "index_commontator_comments_on_c_id_and_c_type_and_t_id"
+    t.index ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at"
+  end
+
+  create_table "commontator_subscriptions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "subscriber_type", null: false
+    t.integer "subscriber_id", null: false
+    t.integer "thread_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscriber_id", "subscriber_type", "thread_id"], name: "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id", unique: true
+    t.index ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
+  end
+
+  create_table "commontator_threads", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "commontable_type"
+    t.integer "commontable_id"
+    t.datetime "closed_at"
+    t.string "closer_type"
+    t.integer "closer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
   end
 
   create_table "courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -74,6 +141,13 @@ ActiveRecord::Schema.define(version: 20180508185104) do
     t.date "dob"
     t.integer "gender"
     t.string "avatar"
+    t.integer "my_draft_comments_count", default: 0
+    t.integer "my_published_comments_count", default: 0
+    t.integer "my_comments_count", default: 0
+    t.integer "draft_comcoms_count", default: 0
+    t.integer "published_comcoms_count", default: 0
+    t.integer "deleted_comcoms_count", default: 0
+    t.integer "spam_comcoms_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
