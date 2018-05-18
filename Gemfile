@@ -11,6 +11,7 @@ gem 'rails', '~> 5.1.6'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 gem 'commontator', '~> 5.1.0'
+gem 'acts_as_votable', '~> 0.11.1'
 gem 'activeadmin', '~> 1.0.0.pre2' 
 gem 'devise'
 gem 'mysql2', '~> 0.3.16'

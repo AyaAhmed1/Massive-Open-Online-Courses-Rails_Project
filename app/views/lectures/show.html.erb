@@ -15,6 +15,20 @@
   <div id="thread_1_div" class="thread" >
   <a data-remote="true" href="/commontator/threads/1">Show Comments </a>
 </div>
+<br/>
+<br/>
+
+<%= link_to like_lecture_path(@lecture), method: :put do %>
+  Like
+  <%= @lecture.get_upvotes.size %>
+<% end %>
+
+<%= link_to dislike_lecture_path(@lecture), method: :put do %>
+  Dislike
+  <%= @lecture.get_downvotes.size %>
+<% end %>
+<br/>
+<br/>
 
 <%= link_to 'Edit', edit_lecture_path(@lecture) %> |
 <%= link_to 'Back', lectures_path %>
