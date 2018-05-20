@@ -1,3 +1,4 @@
+<%= javascript_include_tag Ckeditor.cdn_url %>
 <%= form_with(model: lecture, local: true) do |form| %>
   <% if lecture.errors.any? %>
     <div id="error_explanation">
@@ -13,7 +14,7 @@
 
   <div class="field">
     <%= form.label :content %>
-    <%= form.text_area :content, id: :lecture_content %>
+    <%= form.cktext_area :content, :class => 'ckeditor' %>
   </div>
 
 

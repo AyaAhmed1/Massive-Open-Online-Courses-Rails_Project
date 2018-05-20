@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   resources :lectures do
     member do
       put "like", to: "lectures#upvote"
