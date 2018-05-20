@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
+  mount Commontator::Engine => '/commontator'
+
   resources :lectures do
     member do
+      post :spam
       put "like", to: "lectures#upvote"
       put "dislike", to: "lectures#downvote"
     end
@@ -10,6 +13,5 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, :controllers =>{ registrations: 'registrations' }
-  mount Commontator::Engine => '/commontator'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

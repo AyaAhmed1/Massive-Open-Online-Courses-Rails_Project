@@ -26,5 +26,10 @@
   <%= @lecture.get_downvotes.size %>
 <% end %>
 
+<%= link_to spam_lecture_path(@lecture), method: :post do %>
+  Spam
+
+<% end %>
+
 <%= link_to 'Edit', edit_lecture_path(@lecture) %> |
 <%= link_to 'Back', lectures_path %>
